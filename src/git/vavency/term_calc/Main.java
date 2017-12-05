@@ -4,25 +4,48 @@ public class Main
 {
 	
 	public static void main(String[] args) 
-	{
-		int rez=0;
-		
+	{		
 		if(args.length == 0) 
 		{
 			help_print();
 		}
 		else
 		{
+			double rez=0;
+			double temp_vals = 0;
+			int[] sings = new int[] {-1, -1, -1, 0, 0};
+			calc cal = new calc();
 			jimmy: for(int i=0 ; args.length>i ; i++)
 			{
-				for(int v=0; v<new calc().getSpecialCaselength();v++)
-					if(args[i].contains(new calc().getSpecialCaseString(v))) 
+				for(int v=0; v<cal.getSpecialCaselength();v++)
+					if(args[i].contains(cal.getSpecialCaseString(v)) && sings[4] == 0) 
 					{
-						new calc().call(new double[] {}, args[i]);
+						temp_vals = cal.call(new double[] {}, args[i]);
+						sings[4] = 1;
 						continue jimmy;
 					}
+				if(!isInteger(args[i]) && cal.validChar(args[i]))
+				{
+					sings[1] = i;
+					continue jimmy;
+				}
+				else if(sings[0] == -1)
+				{
+					sings[0] = i;
+				}
 				
-			}
+				if(sings[4] == 1 && sings[0] != -1 && sings[1] != -1)
+				{
+					rez = rez + cal.call(new double[] {temp_vals, new Double(args[sings[0]])}, args[sings[1]]);
+					sings = new int[] {-1, -1, -1, 0, 0};
+				}
+				else if(sings[2] != -1 && sings[0] != 1 && sings[1] != -1)
+				{
+					rez = cal.call(new double[] {rez, new Double(args[sings[0]])}, args[sings[1]]);
+					sings = new int[] {-1, -1, -1, 0, 0};
+				}
+			}			
+			System.out.println(rez);
 		}
 	}
 	
@@ -34,13 +57,15 @@ public class Main
 		System.out.println(" Note: use '/'not '\\' for divide");
 	}
 	
-	public static boolean isInteger(String s) {
-	    try { 
+	private static boolean isInteger(String s) // Having a blast?
+	{
+	    try 
+	    { 
 	        Integer.parseInt(s); 
-	    } catch(NumberFormatException e) { 
+	    } 
+	    catch(NumberFormatException|NullPointerException e) 
+	    { 
 	        return false; 
-	    } catch(NullPointerException e) {
-	        return false;
 	    }
 	    return true;
 	}

@@ -26,6 +26,8 @@ public class calc
 	
 	public double rez=0;
 	
+	public calc() {} // Just in case someone gets sick of calling new calc(). Again, me.
+	
 	public double call(double[] vals, String called) 
 	{
 		boolean special = false;
@@ -64,17 +66,22 @@ public class calc
 			}
 	}
 	
+	// What are you doing here? Really, all this stuff is boring.
+
+	public boolean validChar(String called) 
+	{
+		return this.charmap.containsKey(called);
+	}
+	
 	public int getSpecialCaselength() 
 	{
 		return this.special_cases.length;
 	}
 	
-	public String getSpecialCaseString(int val) 
+	public String getSpecialCaseString(int index) 
 	{
-		return this.special_cases[val];
+		return this.special_cases[index];
 	}
-	
-	// What are you doing here? Really, all this stuff is boring.
 	
 	@SuppressWarnings("unused")
 	private double multi(double i1, double i2) 
