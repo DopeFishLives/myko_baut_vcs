@@ -39,9 +39,9 @@ public class calc
 	}
 	
 	
-	public void add(int i1, int i2) 
+	public int add(int i1, int i2) 
 	{
-		this.rez = i1 + i2; 
+		return i1 + i2; 
 	}
 	
 	private void com_call(String str, int i1, int i2) // Ctrl+C and Crtl+V from an old project, I knew this will come in handy.
@@ -49,7 +49,8 @@ public class calc
 			try // This took the longest.
 			{
 				java.lang.reflect.Method mthd = calc.class.getMethod(str, int.class, int.class);
-				mthd.invoke(new calc(), i1, i2);
+				Object val = mthd.invoke(new calc(), i1, i2);
+				this.rez = (int) val;
 			}
 			catch (Exception e)
 			{
