@@ -11,7 +11,8 @@ public class Main
 		}
 		else
 		{
-			int[] i = { new Integer(args[0]), new Integer(args[2])};
+			int[] i = {};
+			System.out.println(new calc().call(i, args[0]));
 			System.out.println(new calc().call(i, args[1]));
 		}
 	}
