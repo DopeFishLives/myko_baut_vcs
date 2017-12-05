@@ -2,18 +2,27 @@ package git.vavency.term_calc;
 
 public class Main
 {
-	private static int rez=0;
+	
 	public static void main(String[] args) 
 	{
-		if(args.length <= 0) 
+		int rez=0;
+		
+		if(args.length == 0) 
 		{
 			help_print();
 		}
 		else
 		{
-			int[] i = {};
-			System.out.println(new calc().call(i, args[0]));
-			System.out.println(new calc().call(i, args[1]));
+			jimmy: for(int i=0 ; args.length>i ; i++)
+			{
+				for(int v=0; v<new calc().getSpecialCaselength();v++)
+					if(args[i].contains(new calc().getSpecialCaseString(v))) 
+					{
+						new calc().call(new double[] {}, args[i]);
+						continue jimmy;
+					}
+				
+			}
 		}
 	}
 	
@@ -23,5 +32,16 @@ public class Main
 		System.out.println(" Special functions:\n  sqrt(n) - square root of 'n'\n"
 				+ "  pow(n,p) - multiply 'n' to the power of 'p'");
 		System.out.println(" Note: use '/'not '\\' for divide");
+	}
+	
+	public static boolean isInteger(String s) {
+	    try { 
+	        Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return false; 
+	    } catch(NullPointerException e) {
+	        return false;
+	    }
+	    return true;
 	}
 }
