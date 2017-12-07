@@ -24,17 +24,25 @@ public class calc
 				"pow("
 		};
 	
-	public double rez=0;
+	private double rez=0;
 	
+	/**
+	 * Used for shortening calls.
+	 */
 	public calc() {} // Just in case someone gets sick of calling new calc(). Again, me.
 	
+	/**
+	 * Used for calls.
+	 * @param vals Can be empty
+	 * @param called Can be + - * / sqrt(n) pow(n,p)
+	 * @return Value of calculation
+	 */
 	public double call(double[] vals, String called) 
 	{
 		boolean special = false;
 		
-		for(int i=0; i<special_cases.length;i++)
-			if(called.contains(special_cases[i]))
-				special = true;
+		if(this.hasSpecialCase(called))
+			special = true;
 				
 		if(special)
 		{
@@ -52,7 +60,7 @@ public class calc
 		return this.rez;
 	}
 	
-	private void com_call(String str, double i1, double i2) // Ctrl+C and Crtl+V from an old project, I knew this will come in handy.
+	private void com_call(String str, double i1, double i2) // Ctrl+C and Crtl+V from an old project, I knew this would come in handy.
 	{
 			try // This took the longest.
 			{
@@ -68,19 +76,46 @@ public class calc
 	
 	// What are you doing here? Really, all this stuff is boring.
 
-	public boolean validChar(String called) 
+	/**
+	 * Checks weather or not String has valid operator character.
+	 * @param called Character for look up.
+	 * @return Weather it's on the list.
+	 */
+	public boolean isValidChar(String called) 
 	{
 		return this.charmap.containsKey(called);
 	}
 	
+	/**
+	 * @return Returns how many special cases are handled.
+	 */
+	@Deprecated
 	public int getSpecialCaselength() 
 	{
 		return this.special_cases.length;
 	}
-	
+
+	/**
+	 * @param index Used in conjunction with getSpecialCaselength()
+	 * @return Returns special case string used in handling.
+	 */
+	@Deprecated
 	public String getSpecialCaseString(int index) 
 	{
 		return this.special_cases[index];
+	}
+	
+	/**
+	 * Checks weather or not gives special case exists
+	 * @param str String for checking weather or not it's in special case list.
+	 * @return True if String is in the special case list.
+	 */
+	public boolean hasSpecialCase(String str) 
+	{
+		for(int v=0; v<this.special_cases.length;v++)
+			if(str.contains(this.special_cases[v]))
+				return true;
+		return false;
 	}
 	
 	@SuppressWarnings("unused")
